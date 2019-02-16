@@ -13,7 +13,7 @@ cd fits2image
 
 ### Install Python 3
 
-Check Python 3 is installed by running command
+Check if Python 3 is installed by running command
 
 ```
 python3 --version
