@@ -28,10 +28,10 @@ def fits2image(fits_path, output_path, smin=None, smax=None, rewrite=False, sile
         If True the output file will be rewritten.
 
     silent : bool
-        If True the unitilty does not print messages, except in case of errors.
+        If True the utility does not print messages, except in case of errors.
 
     extension : int
-        The FITS extension number that is used for image data. By default, the first extension is used.
+        the FITS extension number that is used for image data (FITS files can contain multiple images, which are called 'extensions'). By default, the first extension is used (-extension=0). The extension numbers start from 0.
 
     """
 
@@ -50,7 +50,7 @@ def fits2image(fits_path, output_path, smin=None, smax=None, rewrite=False, sile
     # Create the output directory
     output_dir = os.path.dirname(output_path)
 
-    if not os.path.exists(output_dir):
+    if type(output_dir) == str and output_dir.strip() and not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
     if not silent:
@@ -76,6 +76,26 @@ def extract_argyments(x):
 
 
 def int_option(options, name, default):
+    """
+    Returns an integer value of a command line option with `name` from `options` dictionary.
+
+    Parameters
+    ----------
+    options : dict
+        A dictionary containing command line options, where keys are the option names and values are the values.
+
+    name : str
+        The name of the command line option.
+
+    default: int
+        The default value of the command line option to use if it is missing in `options`.
+
+    Returns
+    -------
+    int
+        The value of the option.
+    """
+
     if name in options:
         value = options[name]
         try:
@@ -91,16 +111,17 @@ if __name__ == '__main__':
     arguments = sys.argv[1:]
 
     if len(arguments) < 2:
-        print("ERROR: insufficient arguments.\n")
+        print("ERROR: incorrect arguments.\n")
         print("Usage example:\n")
-        print("$ python fits2png.py input.fits output.png [-min=0] [-max=300] [-rewrite] [-silent]\n")
+        print("$ ./fits2png input.fits output.png [-min=0] [-max=300] [-rewrite] [-silent] [-extension=0]\n")
         print("Options:")
         print("   -min, -max: specifies the range of the input pixel brightness values that will\n"
               "         be linearly mapped to output range of (0,255) of the PNG pixels:\n"
               "             output = ((input - min) / (max - min)) * 255.\n\n"
               "   -rewrite: rewrites the output file.\n\n"
+              "   -extension: the FITS extension number that is used for image data (FITS files can contain multiple images, which are called 'extensions'). By default, the first extension is used (-extension=0). The extension numbers start from 0.\n\n"
               "   -silent: do not show non-error output messages.")
-        exit()
+        exit(4)
 
     fits_path = arguments[0]
     output_path = arguments[1]
