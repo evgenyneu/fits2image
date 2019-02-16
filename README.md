@@ -30,8 +30,9 @@ Run the following commands to install the libraries which are used by this utili
 
 
 ```
-pip install numpy --no-deps
+pip install numpy
 pip install astropy --no-deps
+pip install pillow
 ```
 
 ### Add executable to your PATH
