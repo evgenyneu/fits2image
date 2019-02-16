@@ -157,7 +157,7 @@ def fits2image(fits_path, output_path, smin=None, smax=None, rewrite=False, sile
             os.remove(output_path)
     else:
         if os.path.exists(output_path):
-            print(f"ERROR: the output file already exists: '{output_path}'.")
+            print(f"ERROR: the output file already exists: '{output_path}'. Use '-rewrite' option to allow rewriting the output file.")
             exit(3)
 
     # Create the output directory
