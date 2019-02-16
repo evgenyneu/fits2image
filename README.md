@@ -21,9 +21,10 @@ Check if Python 3 is installed by running command
 python3 --version
 ```
 
+On Windows, use `python` instead of `python3`.
+
 If Python 3 is installed, you will see its version number. If you see an error, then [install Python 3](https://www.python.org/downloads/).
 
-On Windows, use `python` instead of `python3`.
 
 
 ### Install Python libraries
