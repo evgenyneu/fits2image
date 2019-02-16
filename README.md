@@ -1,6 +1,6 @@
 # Export FITS file to a png or jpeg image
 
-This is a utility written in Python 3 that converts a FITS file into a jpeg or png image. The utility was tested on Linux, Mac and Windows.
+This is a command line utility written in Python 3 that converts a FITS file into a jpeg or png image. The utility was tested on Linux, Mac and Windows.
 
 ## Installation
 
@@ -70,7 +70,7 @@ python fits2image.py input.fits image.png
 ```
 
 
-## Usage options
+## Options
 
 Run `./fits2png` without parameters to see the full list of options:
 
