@@ -1,4 +1,4 @@
-# Export FITS to image file
+# Export FITS file to a png or jpeg image
 
 This is a utility written in Python 3 that converts a FITS file into image format like png or jpeg.
 
