@@ -1,6 +1,6 @@
 # Export FITS to image file
 
-This is a utility written in Python 3 that converts a FITS file into image (PNG, jpg).
+This is a utility written in Python 3 that converts a FITS file into image format like png or jpeg.
 
 ## Installation
 
