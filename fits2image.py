@@ -169,13 +169,15 @@ def fits2image(fits_path, output_path, smin=None, smax=None, rewrite=False, sile
     if not silent:
         print("Exporting FITS file...")
 
-    # Read the first fits file data
+    # Read the fits file data
     with fits.open(fits_path) as hdul:
         data = hdul[extension].data
 
+        # Flip image vertically
         if flipy:
             data = np.flipud(data)
 
+        # Save the data to image
         array2image(data=data, smin=smin, smax=smax).save(output_path)
 
         if not silent:
