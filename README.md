@@ -72,7 +72,7 @@ python fits2image.py input.fits image.png
 
 ## Options
 
-Run `./fits2png` without parameters to see the full list of options:
+Run `./fits2png` without parameters to see the full list of options (`python fits2image` on Windows):
 
 ```
 fits2image input.fits output.png [-min=0] [-max=300] [-rewrite] [-silent] [-extension=0]
