@@ -90,6 +90,8 @@ output = ((input - min) / (max - min)) * 255.
 
 * **-silent**: do not show non-error output messages.
 
+* **-flipy**: flip the image vertically.
+
 
 ## Credits
 
