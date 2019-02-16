@@ -1,8 +1,119 @@
 from astropy.io import fits
 import numpy as np
-import scipy.misc
 import sys
 import os
+
+try:
+    from PIL import Image
+except ImportError:
+    import Image
+
+
+# Returns a byte-scaled image
+def bytescale(data, cmin=None, cmax=None, high=255, low=0):
+    """
+    Code source: https://github.com/scipy/scipy/blob/v0.19.1/scipy/misc/pilutil.py
+
+    Byte scales an array (image).
+    Byte scaling means converting the input image to uint8 dtype and scaling
+    the range to ``(low, high)`` (default 0-255).
+    If the input image already has dtype uint8, no scaling is done.
+    Parameters
+    ----------
+    data : ndarray
+        PIL image data array.
+    cmin : scalar, optional
+        Bias scaling of small values. Default is ``data.min()``.
+    cmax : scalar, optional
+        Bias scaling of large values. Default is ``data.max()``.
+    high : scalar, optional
+        Scale max value to `high`.  Default is 255.
+    low : scalar, optional
+        Scale min value to `low`.  Default is 0.
+    Returns
+    -------
+    img_array : uint8 ndarray
+        The byte-scaled array.
+    Examples
+    --------
+    >>> from scipy.misc import bytescale
+    >>> img = np.array([[ 91.06794177,   3.39058326,  84.4221549 ],
+    ...                 [ 73.88003259,  80.91433048,   4.88878881],
+    ...                 [ 51.53875334,  34.45808177,  27.5873488 ]])
+    >>> bytescale(img)
+    array([[255,   0, 236],
+           [205, 225,   4],
+           [140,  90,  70]], dtype=uint8)
+    >>> bytescale(img, high=200, low=100)
+    array([[200, 100, 192],
+           [180, 188, 102],
+           [155, 135, 128]], dtype=uint8)
+    >>> bytescale(img, cmin=0, cmax=255)
+    array([[91,  3, 84],
+           [74, 81,  5],
+           [52, 34, 28]], dtype=uint8)
+    """
+    if data.dtype == np.uint8:
+        return data
+
+    if high > 255:
+        raise ValueError("`high` should be less than or equal to 255.")
+    if low < 0:
+        raise ValueError("`low` should be greater than or equal to 0.")
+    if high < low:
+        raise ValueError("`high` should be greater than or equal to `low`.")
+
+    if cmin is None:
+        cmin = data.min()
+    if cmax is None:
+        cmax = data.max()
+
+    cscale = cmax - cmin
+    if cscale < 0:
+        raise ValueError("`cmax` should be larger than `cmin`.")
+    elif cscale == 0:
+        cscale = 1
+
+    scale = float(high - low) / cscale
+    bytedata = (data - cmin) * scale + low
+    return (bytedata.clip(low, high) + 0.5).astype(np.uint8)
+
+
+def array2image(data, smin, smax):
+    """
+    Converts an 2D array of image data to Image.
+
+    The code is based on deprecated `toimage` function from 
+    https://github.com/scipy/scipy/blob/v0.19.1/scipy/misc/pilutil.py
+
+    Parameters
+    ----------
+    data : 2D list
+        The image data from the FITS file.
+
+    smin : int
+    smax : int
+        Specifies the range of the input pixel brightness values that will
+        be linearly mapped to output range of (0,255):
+            output = ((input - min) / (max - min)) * 255."
+
+    Returns
+    -------
+    Image
+        The Image object.
+
+    """
+
+    data = np.asarray(data)
+    shape = list(data.shape)
+
+    if len(shape) != 2:
+        print("ERROR: the image data needs to be in 2D")
+        exit(5)
+
+    shape = (shape[1], shape[0])  # columns show up first
+    bytedata = bytescale(data, high=255, low=0, cmin=smin, cmax=smax)
+    return Image.frombytes('L', shape, bytedata.tostring())
 
 
 def fits2image(fits_path, output_path, smin=None, smax=None, rewrite=False, silent=True, extension=0):
@@ -60,7 +171,7 @@ def fits2image(fits_path, output_path, smin=None, smax=None, rewrite=False, sile
     with fits.open(fits_path) as hdul:
         data = hdul[extension].data
         data = np.flipud(data)
-        scipy.misc.toimage(data, cmin=smin, cmax=smax).save(output_path)
+        array2image(data=data, smin=smin, smax=smax).save(output_path)
 
         if not silent:
             print("Done")

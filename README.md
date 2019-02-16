@@ -31,7 +31,6 @@ Run the following commands to install the libraries which are used by this utili
 
 ```
 pip install numpy --no-deps
-pip install scipy --no-deps
 pip install astropy --no-deps
 ```
 
