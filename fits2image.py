@@ -108,15 +108,14 @@ def array2image(data, smin, smax):
     shape = list(data.shape)
 
     if len(shape) != 2:
-        print("ERROR: the image data needs to be in 2D")
-        exit(5)
+        raise ValueError("ERROR: the image data needs to be in 2D.")
 
     shape = (shape[1], shape[0])  # columns show up first
     bytedata = bytescale(data, high=255, low=0, cmin=smin, cmax=smax)
     return Image.frombytes('L', shape, bytedata.tostring())
 
 
-def fits2image(fits_path, output_path, smin=None, smax=None, rewrite=False, silent=True, extension=0):
+def fits2image(fits_path, output_path, smin=None, smax=None, rewrite=False, silent=True, extension=0, flipy=False):
     """
     Converts a FITS files to an image.
 
@@ -144,6 +143,9 @@ def fits2image(fits_path, output_path, smin=None, smax=None, rewrite=False, sile
     extension : int
         the FITS extension number that is used for image data (FITS files can contain multiple images, which are called 'extensions'). By default, the first extension is used (-extension=0). The extension numbers start from 0.
 
+    flipy: bool
+        Flip the image vertically.
+
     """
 
     if not os.path.exists(fits_path):
@@ -170,7 +172,10 @@ def fits2image(fits_path, output_path, smin=None, smax=None, rewrite=False, sile
     # Read the first fits file data
     with fits.open(fits_path) as hdul:
         data = hdul[extension].data
-        data = np.flipud(data)
+
+        if flipy:
+            data = np.flipud(data)
+
         array2image(data=data, smin=smin, smax=smax).save(output_path)
 
         if not silent:
@@ -224,14 +229,15 @@ if __name__ == '__main__':
     if len(arguments) < 2:
         print("ERROR: incorrect arguments.\n")
         print("Usage example:\n")
-        print("$ ./fits2image input.fits output.png [-min=0] [-max=300] [-rewrite] [-silent] [-extension=0]\n")
+        print("$ ./fits2image input.fits output.png [-min=0] [-max=300] [-rewrite] [-silent] [-extension=0] [-flipy]\n")
         print("Options:")
         print("   -min, -max: specifies the range of the input pixel brightness values that will\n"
               "         be linearly mapped to output range of (0,255):\n"
               "             output = ((input - min) / (max - min)) * 255.\n\n"
               "   -rewrite: rewrites the output file.\n\n"
               "   -extension: the FITS extension number that is used for image data (FITS files can contain multiple images, which are called 'extensions'). By default, the first extension is used (-extension=0). The extension numbers start from 0.\n\n"
-              "   -silent: do not show non-error output messages.")
+              "   -silent: do not show non-error output messages.\n\n"
+              "   -flipy: flip the image vertically.\n\n")
         exit(4)
 
     fits_path = arguments[0]
@@ -249,4 +255,5 @@ if __name__ == '__main__':
                silent=options.get('silent', False),
                smin=int_option(options=options, name='min', default=None),
                smax=int_option(options=options, name='max', default=None),
-               extension=int_option(options=options, name='extension', default=0))
+               extension=int_option(options=options, name='extension', default=0),
+               flipy=options.get('flipy', False))
