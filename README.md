@@ -23,6 +23,8 @@ python3 --version
 
 If Python 3 is installed, you will see its version number. If you see an error, then [install Python 3](https://www.python.org/downloads/).
 
+On Windows, fun `python --version` instead.
+
 
 ### Install Python libraries
 
@@ -35,7 +37,7 @@ pip install astropy --no-deps
 pip install pillow
 ```
 
-### Add executable to your PATH
+### Add executable to your PATH (Mac/Linux only)
 
 Add the path to the `fits2image` directory to your `~/.bash_profile` (Mac) or `~/.bashrc` (Linux):
 
@@ -56,6 +58,14 @@ Run the following command from the `fits2image` directory to export `input.fits`
 
 ```
 fits2image input.fits output.png
+```
+
+#### On Windows
+
+From fits2image directory:
+
+```
+python fits2image.py input.fits image.png
 ```
 
 
