@@ -30,9 +30,9 @@ Run the following commands to install the libraries which are used by this utili
 
 
 ```
-pip3 install numpy
-pip3 install scipy
-pip3 install astropy
+pip install numpy --no-deps
+pip install scipy --no-deps
+pip install astropy --no-deps
 ```
 
 ### Add executable to your PATH
