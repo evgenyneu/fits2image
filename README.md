@@ -82,4 +82,4 @@ output = ((input - min) / (max - min)) * 255.
 
 ## License
 
-Dodo is released under the [MIT License](LICENSE).
+The utility is released under the [MIT License](LICENSE).
