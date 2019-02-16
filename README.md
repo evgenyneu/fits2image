@@ -93,7 +93,7 @@ output = ((input - min) / (max - min)) * 255.
 
 ## Credits
 
-The code is based on the deprecated `toimage` function from the [scipy library](https://github.com/scipy/scipy/blob/v0.19.1/scipy/misc/pilutil.py)
+The code is based on the deprecated `toimage` function from the [scipy library](https://github.com/scipy/scipy/blob/v0.19.1/scipy/misc/pilutil.py).
 
 
 ## License
