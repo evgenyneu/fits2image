@@ -59,7 +59,7 @@ fits2image input.fits output.png
 ```
 
 
-### Usage options
+## Usage options
 
 Run `./fits2png` without parameters to see the full list of options:
 
