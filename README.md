@@ -80,6 +80,11 @@ output = ((input - min) / (max - min)) * 255.
 * **-silent**: do not show non-error output messages.
 
 
+## Credits
+
+The code is based on deprecated `toimage` function from the [scipy library](https://github.com/scipy/scipy/blob/v0.19.1/scipy/misc/pilutil.py)
+
+
 ## License
 
 The utility is released under the [MIT License](LICENSE).
