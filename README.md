@@ -43,7 +43,7 @@ pip install pillow
 Add the path to the `fits2image` directory to your `~/.bash_profile` (Mac) or `~/.bashrc` (Linux):
 
 ```
-export PATH="/YOUR_PATH_HERE:${PATH}"
+export PATH="YOUR_PATH_HERE:${PATH}"
 ```
 
 where YOUR_PATH_HERE is your full path to the `fits2image` directory. To quickly get this path, type `pwd` from the `fits2image` directory.
