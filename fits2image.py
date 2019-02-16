@@ -21,7 +21,7 @@ def fits2image(fits_path, output_path, smin=None, smax=None, rewrite=False, sile
     smin : int
     smax : int
         Specifies the range of the input pixel brightness values that will
-        be linearly mapped to output range of (0,255) of the PNG pixels:
+        be linearly mapped to output range of (0,255):
             output = ((input - min) / (max - min)) * 255."
 
     rewrite : bool
