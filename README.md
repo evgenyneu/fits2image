@@ -23,7 +23,7 @@ python3 --version
 
 If Python 3 is installed, you will see its version number. If you see an error, then [install Python 3](https://www.python.org/downloads/).
 
-On Windows, fun `python --version` instead.
+On Windows, run `python --version` instead.
 
 
 ### Install Python libraries
