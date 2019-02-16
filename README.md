@@ -46,7 +46,7 @@ Add the path to the `fits2image` directory to your `~/.bash_profile` (Mac) or `~
 export PATH="YOUR_PATH_HERE:${PATH}"
 ```
 
-where YOUR_PATH_HERE is your full path to the `fits2image` directory. To quickly get this path, type `pwd` from the `fits2image` directory.
+where YOUR_PATH_HERE needs to be replaced with your full path to the `fits2image` directory. To quickly get this path, type `pwd` from the `fits2image` directory.
 
 When this is done, restart your Terminal to take this new PATH into effect.
 
