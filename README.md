@@ -29,7 +29,7 @@ If Python 3 is installed, you will see its version number. If you see an error, 
 
 ### Install Python libraries
 
-Run the following commands to install the libraries which are used by this utility:
+Run the following commands to install the libraries this utility requires:
 
 
 ```
