@@ -113,10 +113,10 @@ if __name__ == '__main__':
     if len(arguments) < 2:
         print("ERROR: incorrect arguments.\n")
         print("Usage example:\n")
-        print("$ ./fits2png input.fits output.png [-min=0] [-max=300] [-rewrite] [-silent] [-extension=0]\n")
+        print("$ ./fits2image input.fits output.png [-min=0] [-max=300] [-rewrite] [-silent] [-extension=0]\n")
         print("Options:")
         print("   -min, -max: specifies the range of the input pixel brightness values that will\n"
-              "         be linearly mapped to output range of (0,255) of the PNG pixels:\n"
+              "         be linearly mapped to output range of (0,255):\n"
               "             output = ((input - min) / (max - min)) * 255.\n\n"
               "   -rewrite: rewrites the output file.\n\n"
               "   -extension: the FITS extension number that is used for image data (FITS files can contain multiple images, which are called 'extensions'). By default, the first extension is used (-extension=0). The extension numbers start from 0.\n\n"

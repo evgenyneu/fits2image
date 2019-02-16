@@ -67,7 +67,7 @@ Run `./fits2png` without parameters to see the full list of options:
 fits2image input.fits output.png [-min=0] [-max=300] [-rewrite] [-silent] [-extension=0]
 ```
 
-* **-min, -max**: specifies the range of the input pixel brightness values that will be linearly mapped to output range of (0,255) of the PNG pixels: 
+* **-min, -max**: specifies the range of the input pixel brightness values that will be linearly mapped to output range of (0,255):
 
 ```
 output = ((input - min) / (max - min)) * 255.
