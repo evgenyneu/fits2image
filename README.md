@@ -6,7 +6,7 @@ This is a utility written in Python 3 that converts a FITS file into image forma
 
 ### Clone the repository
 
-Run the following from the Terminal:
+Run the following from the Terminal (requires [git to be installed](https://git-scm.com/downloads)):
 
 ```
 git clone https://github.com/evgenyneu/fits2image.git
