@@ -84,6 +84,8 @@ fits2image input.fits output.png [-min=0] [-max=300] [-rewrite] [-silent] [-exte
 output = ((input - min) / (max - min)) * 255.
 ```
 
+The values smaller than `min` will be set to `min`, and same for `max`.
+
 * **-rewrite**: rewrites the output file.
 
 * **-extension**: the FITS extension number that is used for image data (FITS files can contain multiple images, which are called 'extensions'). By default, the first extension is used (-extension=0). The extension numbers start from 0.

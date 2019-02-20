@@ -68,7 +68,7 @@ def bytescale(data, cmin=None, cmax=None, high=255, low=0):
     min_data = data.min()
     max_data = data.max()
 
-    print(f"Min/max values: {min_data}/{max_data}")
+    print(f"Initial brightness range: ({min_data},{max_data})")
 
     if cmin is None:
         cmin = min_data
