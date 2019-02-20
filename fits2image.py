@@ -17,7 +17,9 @@ def bytescale(data, cmin=None, cmax=None, high=255, low=0):
     Byte scales an array (image).
     Byte scaling means converting the input image to uint8 dtype and scaling
     the range to ``(low, high)`` (default 0-255).
+    The values smaller than `min` will be set to `min`, and same for `max`.
     If the input image already has dtype uint8, no scaling is done.
+
     Parameters
     ----------
     data : ndarray
@@ -63,10 +65,20 @@ def bytescale(data, cmin=None, cmax=None, high=255, low=0):
     if high < low:
         raise ValueError("`high` should be greater than or equal to `low`.")
 
+    min_data = data.min()
+    max_data = data.max()
+
+    print(f"Min/max values: {min_data}/{max_data}")
+
     if cmin is None:
-        cmin = data.min()
+        cmin = min_data
+
     if cmax is None:
-        cmax = data.max()
+        cmax = max_data
+
+    # The values smaller than `min` will be set to `min`, and same for `max`
+    data[data < cmin] = cmin
+    data[data > cmax] = cmax
 
     cscale = cmax - cmin
     if cscale < 0:
@@ -133,6 +145,8 @@ def fits2image(fits_path, output_path, smin=None, smax=None, rewrite=False, sile
         Specifies the range of the input pixel brightness values that will
         be linearly mapped to output range of (0,255):
             output = ((input - min) / (max - min)) * 255."
+
+        The values smaller than `min` will be set to `min`, and same for `max`.
 
     rewrite : bool
         If True the output file will be rewritten.
